@@ -1,12 +1,12 @@
 # returns the number of moves required to solve a maze from start to finish
 def solution(map):
-    start = (len(map)-1, len(map[0])-1)     # starting position
+    source = (len(map)-1, len(map[0])-1)     # starting position
 
     # change value of end node to 'E'
     map[0][0] = 'E'
 
     # call the helper function to explore the map
-    helper(map, start)
+    explore(map, source)
 
     # count the number of moves required
     moves = 1
@@ -17,7 +17,7 @@ def solution(map):
     return moves
 
 # solves a maze recursively
-def helper(map, node):
+def explore(map, node):
 
     row = node[0]
     col = node[1]
@@ -44,7 +44,7 @@ def helper(map, node):
     right = (row, col+1)
 
     # if any of the neighbors returns True, the solution exists
-    if (row > 0 and helper(map, top) or col > 0 and helper(map, left) or row < len(map)-1 and helper(map, bottom) or col < len(map[0])-1 and helper(map, right)):
+    if (row > 0 and explore(map, top) or col > 0 and explore(map, left) or row < len(map)-1 and explore(map, bottom) or col < len(map[0])-1 and explore(map, right)):
         return True
 
     return False
